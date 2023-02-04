@@ -2,6 +2,7 @@
 function getComputerChoice() {
   let chance = Math.floor(Math.random() * 3) + 1;
   let choice = "";
+
   if (chance === 1) {
     choice = "Rock";
   } else if (chance === 2) {
@@ -9,33 +10,65 @@ function getComputerChoice() {
   } else {
     choice = "Scissors";
   }
+
   return choice;
 }
 
 //Play a round of the game
 function playRound(playerSelection, computerSelection) {
+  playerSelection = prompt("Enter your choice: ");
+  computerSelection = getComputerChoice();
+  let quote = "";
+
   //make player choice case insensitive
   playerSelection = playerSelection.toLowerCase();
   playerSelection = playerSelection.replace(
     playerSelection[0],
     playerSelection[0].toUpperCase()
   );
-  let result = "";
+
   //tie and winning
   if (playerSelection === computerSelection) {
-    result = "Tie";
+    quote = "Tie";
   } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
-    result = `You Win! ${playerSelection} beats ${computerSelection}`;
+    quote = `You Win! ${playerSelection} beats ${computerSelection}`;
   } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-    result = `You Win! ${playerSelection} beats ${computerSelection}`;
+    quote = `You Win! ${playerSelection} beats ${computerSelection}`;
   } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
-    result = `You Win! ${playerSelection} beats ${computerSelection}`;
+    quote = `You Win! ${playerSelection} beats ${computerSelection}`;
   } else {
-    result = `You Lose! ${computerSelection} beats ${playerSelection}`;
+    quote = `You Lose! ${computerSelection} beats ${playerSelection}`;
   }
-  return result;
+
+  console.log(quote);
+  return quote;
 }
 
-const playerSelection = "rock";
-const computerSelection = getComputerChoice();
-console.log(playRound(playerSelection, computerSelection));
+//play a 5 round game and count points
+function game() {
+  let playerCount = 0;
+  let computerCount = 0;
+  let win = "";
+
+  for (let i = 0; i < 5; ++i) {
+    let result = playRound();
+
+    if (result.slice(4, 7) === "Win") {
+      ++playerCount;
+    } else if (result.slice(4, 8) === "Lose") {
+      ++computerCount;
+    }
+  }
+
+  if (playerCount > computerCount) {
+    win = "You Win!";
+  } else if (computerCount > playerCount) {
+    win = "You Lose!";
+  } else {
+    win = "Tie";
+  }
+
+  return win;
+}
+
+console.log(game());
