@@ -1,0 +1,49 @@
+html {
+  display: flex;
+  flex: auto;
+}
+
+body {
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  flex-direction: column;
+  flex: auto;
+  background-color: black;
+  color: white;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px;
+}
+
+h1 {
+  font-size: xxx-large;
+  margin-top: 8px;
+  display: flex;
+  flex: auto;
+}
+
+#board {
+  display: flex;
+  flex: auto;
+  width: 750px;
+  height: 400px;
+}
+
+#choice {
+  display: flex;
+  flex: auto;
+  margin-top: 48px;
+  gap: 16px;
+}
+
+button {
+  border-color: white;
+  border-radius: 8px;
+  background-color: black;
+  color: white;
+  flex: auto;
+  font-size: xx-large;
+  font-weight: bold;
+  width: 150px;
+  height: 100px;
+}
