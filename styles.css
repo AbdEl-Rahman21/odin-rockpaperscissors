@@ -29,6 +29,17 @@ h1 {
   height: 400px;
 }
 
+#result,
+#score {
+  display: flex;
+  flex: auto;
+  width: 375px;
+  height: 400px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #choice {
   display: flex;
   flex: auto;

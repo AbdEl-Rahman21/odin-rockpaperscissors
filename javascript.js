@@ -1,4 +1,10 @@
-//Make the computer chose rock, paper or scissors
+let counter = [0, 0];
+let playerSelection = "";
+const board1 = document.querySelector("#result");
+const board2 = document.querySelector("#score");
+const result = document.createElement("p");
+const score = document.createElement("p");
+
 function getComputerChoice() {
   let chance = Math.floor(Math.random() * 3) + 1;
   let choice = "";
@@ -14,61 +20,57 @@ function getComputerChoice() {
   return choice;
 }
 
-//Play a round of the game
 function playRound(playerSelection, computerSelection) {
-  playerSelection = prompt("Enter your choice: ");
-  computerSelection = getComputerChoice();
-  let quote = "";
+  const i = [0, 0];
 
-  //make player choice case insensitive
-  playerSelection = playerSelection.toLowerCase();
-  playerSelection = playerSelection.replace(
-    playerSelection[0],
-    playerSelection[0].toUpperCase()
-  );
-
-  //tie and winning
   if (playerSelection === computerSelection) {
-    quote = "Tie";
+    result.textContent = "Tie";
   } else if (playerSelection === "Rock" && computerSelection === "Scissors") {
-    quote = `You Win! ${playerSelection} beats ${computerSelection}`;
+    result.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+    ++i[0];
   } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-    quote = `You Win! ${playerSelection} beats ${computerSelection}`;
+    result.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+    ++i[0];
   } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
-    quote = `You Win! ${playerSelection} beats ${computerSelection}`;
+    result.textContent = `You Win! ${playerSelection} beats ${computerSelection}`;
+    ++i[0];
   } else {
-    quote = `You Lose! ${computerSelection} beats ${playerSelection}`;
+    result.textContent = `You Lose! ${computerSelection} beats ${playerSelection}`;
+    ++i[1];
   }
 
-  console.log(quote);
-  return quote;
+  board1.appendChild(result);
+
+  return i;
 }
 
-//play a 5 round game and count points
 function game() {
-  let playerCount = 0;
-  let computerCount = 0;
-  let win = "";
+  const j = playRound(playerSelection, getComputerChoice());
 
-  for (let i = 0; i < 5; ++i) {
-    let result = playRound();
+  counter[0] += j[0];
+  counter[1] += j[1];
+  score.textContent = `Player: ${counter[0]} Machine: ${counter[1]}`;
+  board2.appendChild(score);
 
-    if (result.slice(4, 7) === "Win") {
-      ++playerCount;
-    } else if (result.slice(4, 8) === "Lose") {
-      ++computerCount;
-    }
+  if (counter[0] === 5) {
+    result.textContent = "Player Wins!";
+    score.textContent = ":)";
+    board2.appendChild(score);
+    board1.appendChild(result);
+    counter = [0, 0];
+  } else if (counter[1] === 5) {
+    result.textContent = "Machine Wins!";
+    score.textContent = ":(";
+    board2.appendChild(score);
+    board1.appendChild(result);
+    counter = [0, 0];
   }
-
-  if (playerCount > computerCount) {
-    win = "You Win!";
-  } else if (computerCount > playerCount) {
-    win = "You Lose!";
-  } else {
-    win = "Tie";
-  }
-
-  return win;
 }
 
-console.log(game());
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+  button.addEventListener("click", () => {
+    playerSelection = button.id;
+    game();
+  });
+});
